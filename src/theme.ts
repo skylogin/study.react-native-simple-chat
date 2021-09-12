@@ -21,5 +21,8 @@ const colors: colorType = {
 export const theme: DefaultTheme = {
   background: colors.white,
   text: colors.black,
-  imageBackground: colors.grey_0,
+  imageBackground: colors.white,
+  label: colors.grey_1,
+  inputPlaceholder: colors.grey_1,
+  inputBorder: colors.grey_1,
 };
