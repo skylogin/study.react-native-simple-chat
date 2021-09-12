@@ -25,4 +25,5 @@ export const theme: DefaultTheme = {
   label: colors.grey_1,
   inputPlaceholder: colors.grey_1,
   inputBorder: colors.grey_1,
+  errorText: colors.red,
 };

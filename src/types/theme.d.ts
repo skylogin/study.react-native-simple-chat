@@ -8,5 +8,6 @@ declare module "styled-components" {
     label: string;
     inputPlaceholder: string;
     inputBorder: string;
+    errorText: string;
   }
 }
