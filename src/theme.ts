@@ -29,4 +29,5 @@ export const theme: DefaultTheme = {
   buttonBackground: colors.blue,
   buttonTitle: colors.white,
   buttonUnfilledTitle: colors.blue,
+  headerTintColor: colors.black,
 };
