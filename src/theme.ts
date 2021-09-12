@@ -26,4 +26,7 @@ export const theme: DefaultTheme = {
   inputPlaceholder: colors.grey_1,
   inputBorder: colors.grey_1,
   errorText: colors.red,
+  buttonBackground: colors.blue,
+  buttonTitle: colors.white,
+  buttonUnfilledTitle: colors.blue,
 };

@@ -9,5 +9,8 @@ declare module "styled-components" {
     inputPlaceholder: string;
     inputBorder: string;
     errorText: string;
+    buttonBackground: string;
+    buttonTitle: string;
+    buttonUnfilledTitle: string;
   }
 }

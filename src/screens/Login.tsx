@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/stack';
 
-import { Image, Input } from '../components';
+import { Image, Input, Button } from '../components';
 import { images } from '../utils/images';
 import { validateEmail, removeWhitespace } from '../utils/common';
 
@@ -41,6 +40,12 @@ const Login: React.FC<IProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(!(email && password && !errorMessage));
+  }, [email, password, errorMessage]);
+
 
   const _handleEmailChange = (email: string) => {
     const changedEmail = removeWhitespace(email);
@@ -53,6 +58,10 @@ const Login: React.FC<IProps> = ({
   const _handlePasswordChange = (password: string) => {
     setPassword(removeWhitespace(password));
   }
+
+  const _handleLoginButtonPress = () => {
+    // disalbed false여야 진행 
+  };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={{ flex:1 }} extraScrollHeight={20}>
@@ -70,13 +79,14 @@ const Login: React.FC<IProps> = ({
           label="Password"
           value={password}
           onChangeText={_handlePasswordChange}
-          onSubmitEditing={() => {}}
+          onSubmitEditing={_handleLoginButtonPress}
           placeholder="Password"
           returnKeyType="done"
           isPassword
         />
         <ErrorText>{errorMessage}</ErrorText>
-        <Button title="Signup" onPress={() => navigation.navigate('Signup')} />
+        <Button title="Login" onPress={_handleLoginButtonPress} disabled={disabled} />
+        <Button title="Sign up with Email" onPress={() => navigation.navigate('Signup')} isFilled={false} />
       </Container>
     </KeyboardAwareScrollView>
   )
