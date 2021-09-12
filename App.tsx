@@ -7,6 +7,8 @@ import * as Font from 'expo-font';
 
 import Index from './src';
 
+import { images } from './src/utils/images';
+
 
 const cacheImages = (images:any) => {
   return images.map((image:any) => {
@@ -27,7 +29,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   const _loadAssets = async () => {
-    const imageAssets = cacheImages([require('./assets/splash.png')]);
+    const imageAssets = cacheImages([require('./assets/splash.png'), ...Object.values(images)]);
     const fontAssets = cacheFonts([]);
 
     await Promise.all([...imageAssets, ...fontAssets]);

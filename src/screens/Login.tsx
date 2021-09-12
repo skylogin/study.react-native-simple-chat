@@ -1,9 +1,12 @@
 import React from 'react';
-import { Text, Button } from 'react-native';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/stack';
+
+import { Image } from '../components';
+import { images } from '../utils/images';
 
 const Container = styled.View`
   flex: 1;
@@ -25,9 +28,7 @@ const Login: React.FC<IProps> = ({
 }) => {
   return (
     <Container>
-      <Text style={{ fontSize: 30}}>
-        Login Screen
-      </Text>
+      <Image url={images.logo} imageStyle={{ borderRadius: 8, backgroundColor: "#fff" }} />
       <Button title="Signup" onPress={() => navigation.navigate('Signup')} />
     </Container>
   )

@@ -6,6 +6,7 @@ import { theme } from './theme';
 
 import Navigation from './navigations';
 
+
 const Index: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>

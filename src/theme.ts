@@ -21,4 +21,5 @@ const colors: colorType = {
 export const theme: DefaultTheme = {
   background: colors.white,
   text: colors.black,
+  imageBackground: colors.grey_0,
 };
