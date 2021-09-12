@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/stack';
 
@@ -9,13 +11,14 @@ import { Image, Input, Button } from '../components';
 import { images } from '../utils/images';
 import { validateEmail, removeWhitespace } from '../utils/common';
 
-const Container = styled.View`
+const Container = styled.View<{ insets: any }>`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.background};
-  padding: 20px;
-  /* margin-bottom: 60%; */
+  padding: 0 20px;
+  padding-top: ${({ insets: { top } }) => top}px;
+  padding-bottom: ${({ insets: { bottom } }) => bottom}px;
 `;
 
 const ErrorText = styled.Text`
@@ -46,6 +49,7 @@ const Login: React.FC<IProps> = ({
     setDisabled(!(email && password && !errorMessage));
   }, [email, password, errorMessage]);
 
+  const insets = useSafeAreaInsets();
 
   const _handleEmailChange = (email: string) => {
     const changedEmail = removeWhitespace(email);
@@ -65,7 +69,7 @@ const Login: React.FC<IProps> = ({
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={{ flex:1 }} extraScrollHeight={20}>
-      <Container>
+      <Container insets={insets}>
         <Image url={images.logo} imageStyle={{ borderRadius: 8 }} />
         <Input
           label="Eamil"
