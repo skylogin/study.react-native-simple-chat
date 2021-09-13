@@ -30,4 +30,6 @@ export const theme: DefaultTheme = {
   buttonTitle: colors.white,
   buttonUnfilledTitle: colors.blue,
   headerTintColor: colors.black,
+  imageButtonBackground: colors.grey_1,
+  imageButtonIcon: colors.white,
 };

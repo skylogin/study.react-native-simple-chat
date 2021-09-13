@@ -43,7 +43,7 @@ const Signup: React.FC<IProps> = ({
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [photoUrl, setPhotoUrl] = useState(images.photo);
-  
+
   const didMountRef = useRef(false);
 
   useEffect(() => {
@@ -85,7 +85,11 @@ const Signup: React.FC<IProps> = ({
       extraScrollHeight={20}  
     >
       <Container>
-        <Image url={photoUrl} rounded />
+        <Image 
+          url={photoUrl} 
+          onChangeImage={(url:string) => setPhotoUrl(url)}
+          rounded 
+          showButton />
         <Input
           label="Name"
           value={name}

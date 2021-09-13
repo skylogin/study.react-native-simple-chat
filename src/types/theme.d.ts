@@ -5,6 +5,8 @@ declare module "styled-components" {
     background: string;
     text: string;
     imageBackground: string;
+    imageButtonBackground: string;
+    imageButtonIcon: string;
     label: string;
     inputPlaceholder: string;
     inputBorder: string;
