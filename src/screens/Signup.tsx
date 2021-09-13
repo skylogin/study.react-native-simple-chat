@@ -9,6 +9,7 @@ import { RootStackParamList } from '../types/stack';
 import { Image, Input, Button } from '../components';
 
 import { validateEmail, removeWhitespace } from '../utils/common';
+import { images } from '../utils/images';
 
 const Container = styled.View`
   flex: 1;
@@ -41,7 +42,8 @@ const Signup: React.FC<IProps> = ({
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
-
+  const [photoUrl, setPhotoUrl] = useState(images.photo);
+  
   const didMountRef = useRef(false);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ const Signup: React.FC<IProps> = ({
       extraScrollHeight={20}  
     >
       <Container>
-        <Image rounded />
+        <Image url={photoUrl} rounded />
         <Input
           label="Name"
           value={name}
