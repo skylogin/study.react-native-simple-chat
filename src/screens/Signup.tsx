@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/stack';
+
+import { SignupScreenNavigationType } from '../types/stack';
 
 import { ProgressContext } from '../contexts';
 import { Image, Input, Button } from '../components';
@@ -31,9 +31,9 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Signup'>;
+
 interface IProps {
-  navigation: SignupScreenNavigationProp
+  navigation: SignupScreenNavigationType
 }
 
 const Signup: React.FC<IProps> = ({

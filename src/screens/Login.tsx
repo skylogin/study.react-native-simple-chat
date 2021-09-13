@@ -5,8 +5,7 @@ import styled from 'styled-components/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types/stack';
+import { LoginScreenNavigationType } from '../types/stack';
 
 import { ProgressContext } from '../contexts';
 import { Image, Input, Button } from '../components';
@@ -33,9 +32,9 @@ const ErrorText = styled.Text`
   color: ${({ theme }) => theme.errorText};
 `;
 
-type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
 interface IProps {
-  navigation: LoginScreenNavigationProp
+  navigation: LoginScreenNavigationType
 }
 
 
