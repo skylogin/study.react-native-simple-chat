@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/stack';
 
+import { ProgressContext } from '../contexts';
 import { Image, Input, Button } from '../components';
 import { images } from '../utils/images';
 import { validateEmail, removeWhitespace } from '../utils/common';
@@ -50,6 +51,7 @@ const Login: React.FC<IProps> = ({
     setDisabled(!(email && password && !errorMessage));
   }, [email, password, errorMessage]);
 
+  const { spinner } = useContext(ProgressContext);
   const insets = useSafeAreaInsets();
 
   const _handleEmailChange = (email: string) => {
@@ -67,10 +69,13 @@ const Login: React.FC<IProps> = ({
   const _handleLoginButtonPress = async () => {
     if(!disabled){
       try{
+        spinner.start();
         const user = await login({ email, password });
         Alert.alert('Login Success', String(user?.email));
       } catch(e: any){
         Alert.alert('Login Error', e.message);
+      } finally{
+        spinner.stop();
       }
     }
   };

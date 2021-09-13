@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/stack';
 
+import { ProgressContext } from '../contexts';
 import { Image, Input, Button } from '../components';
 
 import { validateEmail, removeWhitespace } from '../utils/common';
@@ -76,14 +77,19 @@ const Signup: React.FC<IProps> = ({
     );
   }, [name, email, password, passwordConfirm, errorMessage])
   
-  
+  const { spinner } = useContext(ProgressContext);
+
+
   const _handleSignupButtonPress = async () => {
     if(!disabled){
       try{
+        spinner.start();
         const user = await signup({ email, password, name, photoUrl });
         Alert.alert('Signup Success', String(user?.email));
       } catch(e: any){
         Alert.alert('Signup Error', e.message);
+      } finally{
+        spinner.stop();
       }
     }
   };
