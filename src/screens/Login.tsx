@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -10,6 +11,7 @@ import { RootStackParamList } from '../types/stack';
 import { Image, Input, Button } from '../components';
 import { images } from '../utils/images';
 import { validateEmail, removeWhitespace } from '../utils/common';
+import { login } from '../utils/firebase';
 
 const Container = styled.View<{ insets: any }>`
   flex: 1;
@@ -34,7 +36,6 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'
 interface IProps {
   navigation: LoginScreenNavigationProp
 }
-
 
 
 const Login: React.FC<IProps> = ({
@@ -63,8 +64,15 @@ const Login: React.FC<IProps> = ({
     setPassword(removeWhitespace(password));
   }
 
-  const _handleLoginButtonPress = () => {
-    // disalbed false여야 진행 
+  const _handleLoginButtonPress = async () => {
+    if(!disabled){
+      try{
+        const user = await login({ email, password });
+        Alert.alert('Login Success', String(user?.email));
+      } catch(e: any){
+        Alert.alert('Login Error', e.message);
+      }
+    }
   };
 
   return (
