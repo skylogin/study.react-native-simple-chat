@@ -80,10 +80,7 @@ const Signup: React.FC<IProps> = ({
   const _handleSignupButtonPress = async () => {
     if(!disabled){
       try{
-        const user = await signup({ email, password });
-        console.log("=============");
-        console.log(user);
-        console.log("===========");
+        const user = await signup({ email, password, name, photoUrl });
         Alert.alert('Signup Success', String(user?.email));
       } catch(e: any){
         Alert.alert('Signup Error', e.message);
