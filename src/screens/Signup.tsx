@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -42,13 +42,37 @@ const Signup: React.FC<IProps> = ({
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
 
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if(didMountRef.current){
+      let _errorMessage = '';
+      if(!name){
+        _errorMessage = 'Please enter your Name.';
+      } else if(!validateEmail(email)){
+        _errorMessage = 'Please verify your Email.';
+      } else if(password.length < 6){
+        _errorMessage = 'The password must contain 6 characters at least.';
+      } else if(password !== passwordConfirm){
+        _errorMessage = 'Passwords need to match.';
+      } else{
+        _errorMessage = '';
+      }
+  
+      setErrorMessage(_errorMessage);
+    } else{
+      didMountRef.current = true;
+    }
+  }, [name, email, password, passwordConfirm]);
+  
+  
   useEffect(() => {
     setDisabled(
       !(name && email && password && passwordConfirm && !errorMessage)
     );
-  }, [name, email, password, passwordConfirm, errorMessage]);
-
-
+  }, [name, email, password, passwordConfirm, errorMessage])
+  
+  
   const _handleSignupButtonPress = () => {
 
   };
