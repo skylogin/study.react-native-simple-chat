@@ -36,4 +36,5 @@ export const theme: DefaultTheme = {
   spinnerIndicator: colors.white,
   tabActiveColor: colors.blue,
   tabInactiveColor: colors.grey_1,
+  buttonLogout: colors.red,
 };

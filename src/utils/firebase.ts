@@ -64,3 +64,35 @@ export const signup = async ({
 export const logout = async () => {
   return await Auth.signOut();
 };
+
+interface IUserProps {
+  uid: string;
+  displayName: string;
+  email: string;
+  photoURL: string;
+}
+
+export const getCurrentUser = () => {
+  const user = Auth.currentUser;
+
+  if (user) {
+    let { uid, displayName, email, photoURL } = user;
+    return { uid, name: displayName, email, photoUrl: photoURL };
+  }
+
+  return { uid: "", name: "", email: "", photoUrl: "" };
+};
+
+export const updateUserPhoto = async (photoUrl: string) => {
+  const user = Auth.currentUser;
+  const storageUrl = photoUrl.startsWith("https")
+    ? photoUrl
+    : await uploadImage(photoUrl);
+
+  await user?.updateProfile({ photoURL: storageUrl });
+  return {
+    name: user?.displayName,
+    email: user?.email,
+    photoUrl: user?.photoURL,
+  };
+};

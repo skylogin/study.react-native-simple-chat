@@ -29,12 +29,12 @@ const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
 interface IProps {
   label: string;
   value: string;
-  onChangeText: (text:string) => void;
-  onSubmitEditing: () => void;
+  onChangeText?: (text:string) => void;
+  onSubmitEditing?: () => void;
   onBlur?: () => void;
-  placeholder: string;
+  placeholder?: string;
   isPassword?: boolean;
-  returnKeyType: "done" | "next";
+  returnKeyType?: "done" | "next";
   maxLength?: number;
 }
 
