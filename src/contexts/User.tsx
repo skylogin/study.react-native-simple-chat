@@ -1,13 +1,8 @@
 import React, { useState, createContext } from 'react';
 
-interface loginProp {
-  email: string | null;
-  uid: string | null;
-}
-
 interface IUserProps{
   user: {email: string | null, uid: string | null};
-  dispatch: ({}: loginProp) => void;
+  dispatch: ({}) => void;
 }
 
 const UserContext = createContext<IUserProps>({
@@ -17,10 +12,12 @@ const UserContext = createContext<IUserProps>({
 
 
 const UserProvider: React.FC<{}> = ({ children }) => {
-  const [user, setUser] = useState({email: '', uid: ''});
-  const dispatch = ({ email, uid }: loginProp) => {
+  const [user, setUser] = useState({email: null, uid: null});
+  const dispatch = ({ email, uid }: any) => {
     if(email && uid){
       setUser({ email, uid });
+    } else{
+      setUser({ email: null, uid: null});
     }
   };
 

@@ -60,3 +60,7 @@ export const signup = async ({
 
   return user;
 };
+
+export const logout = async () => {
+  return await Auth.signOut();
+};
