@@ -37,4 +37,5 @@ export const theme: DefaultTheme = {
   tabActiveColor: colors.blue,
   tabInactiveColor: colors.grey_1,
   buttonLogout: colors.red,
+  inputDisabledBackground: colors.grey_0,
 };

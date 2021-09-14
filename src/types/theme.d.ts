@@ -10,6 +10,7 @@ declare module "styled-components" {
     label: string;
     inputPlaceholder: string;
     inputBorder: string;
+    inputDisabledBackground: string;
     errorText: string;
     buttonBackground: string;
     buttonTitle: string;

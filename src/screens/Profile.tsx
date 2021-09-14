@@ -66,8 +66,8 @@ const Profile: React.FC<IProps> = ({
         showButton
         rounded
       />
-      <Input label="Name" value={String(user.name)} />
-      <Input label="Email" value={String(user.email)} />
+      <Input label="Name" value={String(user.name)} disabled />
+      <Input label="Email" value={String(user.email)} disabled />
       <Button 
         title="logout" 
         onPress={_handleLogoutButtonPress} 

@@ -17,7 +17,7 @@ const Label = styled.Text<{isFocused: boolean}>`
 const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
   placeholderTextColor: theme.inputPlaceholder,
 }))<{isFocused: boolean}>`
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme, editable }) => editable? theme.background: theme.inputDisabledBackground};
   color: ${({ theme }) => theme.text};
   padding: 20px 10px;
   font-size: 16px;
@@ -36,6 +36,7 @@ interface IProps {
   isPassword?: boolean;
   returnKeyType?: "done" | "next";
   maxLength?: number;
+  disabled: boolean;
 }
 
 
@@ -49,6 +50,7 @@ const Input: React.FC<IProps> = ({
   isPassword,
   returnKeyType,
   maxLength,
+  disabled,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -75,6 +77,7 @@ const Input: React.FC<IProps> = ({
         autoCorrect={false}
         textContentType="none"
         underlineColorAndroid="transparent"
+        editable={!disabled}
       />
     </Container>
   )
