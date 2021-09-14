@@ -15,6 +15,8 @@ declare module "styled-components" {
     buttonTitle: string;
     buttonUnfilledTitle: string;
     headerTintColor: string;
+    tabActiveColor: string;
+    tabInactiveColor: string;
     spinnerBackground: string;
     spinnerIndicator: string;
   }
