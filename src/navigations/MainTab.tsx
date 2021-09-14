@@ -1,21 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Text } from 'react-native';
 import { ThemeContext } from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 
-
 import { Profile, ChannelList } from '../screens';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
 
 const Tab = createBottomTabNavigator();
-
-
 
 interface IProps {
   focused: boolean;
   name: typeof MaterialIcons.defaultProps;
 }
-
 
 const TabBarIcon: React.FC<IProps> = ({
   focused,
@@ -33,9 +31,14 @@ const TabBarIcon: React.FC<IProps> = ({
 };
 
 
+
+
+
+
 const MainTab: React.FC<{}> = ({
 }) => {
   const theme = useContext(ThemeContext);
+
 
   return (
     <Tab.Navigator
@@ -43,7 +46,7 @@ const MainTab: React.FC<{}> = ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName = '';
 
-          if (route.name === 'Channel List') {
+          if (route.name === 'Channels') {
             iconName = focused
               ? 'chat-bubble'
               : 'chat-bubble-outline';
@@ -57,8 +60,8 @@ const MainTab: React.FC<{}> = ({
         tabBarInactiveTintColor: theme.tabInactiveColor,
       })}
     >
-      <Tab.Screen name="Channel List" component={ChannelList} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Channels" component={ChannelList} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
 };

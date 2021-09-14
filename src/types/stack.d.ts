@@ -1,9 +1,17 @@
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
 type AuthStackParamList = {
   Login: undefined;
   Signup: undefined;
 };
 
-type MainStackParamList = {};
+type MainStackParamList = {
+  Channels: undefined;
+  Profile: undefined;
+  Channel: undefined;
+  ChannelCreation: undefined;
+};
 
 type LoginScreenNavigationType = StackNavigationProp<
   AuthStackParamList,
@@ -25,7 +33,7 @@ type ChannelScreenNavigationType = StackNavigationProp<
 
 type ChannelListScreenNavigationType = StackNavigationProp<
   MainStackParamList,
-  "ChannelList"
+  "Channels"
 >;
 
 type ProfileScreenNavigationType = StackNavigationProp<

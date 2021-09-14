@@ -36,7 +36,7 @@ interface IProps {
   isPassword?: boolean;
   returnKeyType?: "done" | "next";
   maxLength?: number;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 
