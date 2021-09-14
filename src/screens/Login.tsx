@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { LoginScreenNavigationType } from '../types/stack';
 
-import { ProgressContext } from '../contexts';
+import { ProgressContext, UserContext } from '../contexts';
 import { Image, Input, Button } from '../components';
 import { images } from '../utils/images';
 import { validateEmail, removeWhitespace } from '../utils/common';
@@ -46,10 +46,12 @@ const Login: React.FC<IProps> = ({
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
 
+  
   useEffect(() => {
     setDisabled(!(email && password && !errorMessage));
   }, [email, password, errorMessage]);
-
+  
+  const { dispatch } = useContext(UserContext);
   const { spinner } = useContext(ProgressContext);
   const insets = useSafeAreaInsets();
 
@@ -70,7 +72,7 @@ const Login: React.FC<IProps> = ({
       try{
         spinner.start();
         const user = await login({ email, password });
-        Alert.alert('Login Success', String(user?.email));
+        user && dispatch(user);
       } catch(e: any){
         Alert.alert('Login Error', e.message);
       } finally{

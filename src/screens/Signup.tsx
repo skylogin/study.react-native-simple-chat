@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { SignupScreenNavigationType } from '../types/stack';
 
-import { ProgressContext } from '../contexts';
+import { ProgressContext, UserContext } from '../contexts';
 import { Image, Input, Button } from '../components';
 
 import { validateEmail, removeWhitespace } from '../utils/common';
@@ -77,6 +77,8 @@ const Signup: React.FC<IProps> = ({
     );
   }, [name, email, password, passwordConfirm, errorMessage])
   
+
+  const { dispatch } = useContext(UserContext);
   const { spinner } = useContext(ProgressContext);
 
 
@@ -85,7 +87,7 @@ const Signup: React.FC<IProps> = ({
       try{
         spinner.start();
         const user = await signup({ email, password, name, photoUrl });
-        Alert.alert('Signup Success', String(user?.email));
+        user && dispatch(user);
       } catch(e: any){
         Alert.alert('Signup Error', e.message);
       } finally{
