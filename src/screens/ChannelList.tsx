@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import styled, { ThemeContext } from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import moment from 'moment';
 
 import { DB } from '../utils/firebase';
 
@@ -45,6 +46,8 @@ const ItemTime = styled.Text`
 
 
 
+
+
 type TParam = {
   id: string;
   title: string;
@@ -59,15 +62,19 @@ interface ItemProps {
   onPress: ({id, title}: TParam) => void;
 }
 
+
+const getDateOrTime = (ts: Date) => {
+  const now = moment().startOf('day');
+  const target = moment(ts).startOf('day');
+  return moment(ts).format(now.diff(target, 'days') > 0? 'MM/DD': 'HH:mm');
+}
+
 const Item: React.FC<ItemProps> = React.memo(({
   item,
   onPress,
 }) => {
   const { id, title, description, createdAt } = item;
-
   const theme = useContext(ThemeContext);
-  console.log(`Item: ${id}`);
-
 
   return (
     <ItemContainer onPress={() => onPress({ id, title })}>
@@ -75,7 +82,7 @@ const Item: React.FC<ItemProps> = React.memo(({
         <ItemTitle>{title}</ItemTitle>
         <ItemDescription>{description}</ItemDescription>
       </ItemTextContainer>
-      <ItemTime>{createdAt}</ItemTime>
+      <ItemTime>{getDateOrTime(createdAt)}</ItemTime>
       <MaterialIcons
         name="keyboard-arrow-right"
         size={24}
@@ -99,11 +106,7 @@ const ChannelList: React.FC<IProps> = ({
     const unsubscribe = DB.collection('channels')
       .orderBy('createdAt', 'desc')
       .onSnapshot(snapshot => {
-        const list:any = [];
-
-        console.log(list);
-        console.log(typeof list);
-
+        const list: any = [];
         snapshot.forEach(doc => {
           list.push(doc.data());
         });
