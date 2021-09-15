@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
 
-import { ChannelScreenNavigationType } from '../types/stack';
+import { ChannelScreenNavigationType, ChannelRouteProp } from '../types/stack';
 
 
 const Container = styled.View`
@@ -12,16 +12,21 @@ const Container = styled.View`
 
 
 interface IProps {
-  navigation: ChannelScreenNavigationType
+  navigation: ChannelScreenNavigationType,
+  route: ChannelRouteProp
 }
 
 const Channel: React.FC<IProps> = ({
-  navigation
+  navigation,
+  route
 }) => {
   return (
     <Container>
       <Text style={{ fontSize: 24 }}>
-        Channel
+        ID: {route.params?.id}
+      </Text>
+      <Text style={{ fontSize: 24 }}>
+        Title: {route.params?.title}
       </Text>
     </Container>
   )

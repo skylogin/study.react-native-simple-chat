@@ -1,7 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { Input, Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import { ProgressContext } from '../contexts';
+import { createChannel } from '../utils/firebase';
 
 import { ChannelCreationScreenNavigationType } from '../types/stack';
 
@@ -35,8 +39,8 @@ const ChannelCreation: React.FC<IProps> = ({
   const [description, setDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
-  // const descriptionRef = useRef();
 
+  const { spinner } = useContext(ProgressContext);
 
   useEffect(() => {
     setDisabled(!(title && !errorMessage));
@@ -47,8 +51,17 @@ const ChannelCreation: React.FC<IProps> = ({
     setErrorMessage(title.trim()? '': 'Plesase enter the title.');
   };
 
-  const _handleCreateButtonPress = () => {
+  const _handleCreateButtonPress = async () => {
     //disabled 체크
+    try{
+      spinner.start();
+      const id = await createChannel({ title, description });
+      navigation.replace('Channel', { id, title });
+    } catch(e: any){
+      Alert.alert('Creation Error', e.message);
+    } finally{
+      spinner.stop();
+    }
 
   };
 
@@ -62,17 +75,13 @@ const ChannelCreation: React.FC<IProps> = ({
           label="Title"
           value={title}
           onChangeText={_handleTitleChange}
-          onSubmitEditing={() => {
-            setTitle(title.trim());
-            // descriptionRef.current.focus();
-          }}
+          onSubmitEditing={() => setTitle(title.trim())}
           onBlur={() => setTitle(title.trim())}
           placeholder="Title"
           returnKeyType="next"
           maxLength={20}
         />
         <Input
-          // ref={descriptionRef}
           label="Description"
           value={description}
           onChangeText={text => setDescription(text)}

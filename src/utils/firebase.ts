@@ -1,9 +1,12 @@
 import firebase from "firebase";
+import "firebase/firestore";
+
 import config from "../../firebase.json";
 
 const app = firebase.initializeApp(config);
 
 const Auth = app.auth();
+export const DB = firebase.firestore();
 
 interface loginProps {
   email: string;
@@ -95,4 +98,23 @@ export const updateUserPhoto = async (photoUrl: string) => {
     email: user?.email,
     photoUrl: user?.photoURL,
   };
+};
+
+interface IChannel {
+  title: string;
+  description: string;
+}
+
+export const createChannel = async ({ title, description }: IChannel) => {
+  const newChannelRef = DB.collection("channels").doc();
+  const id = newChannelRef.id;
+  const newChannel = {
+    id,
+    title,
+    description,
+    createAt: Date.now(),
+  };
+
+  await newChannelRef.set(newChannel);
+  return id;
 };

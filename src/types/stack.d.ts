@@ -9,7 +9,7 @@ type AuthStackParamList = {
 type MainStackParamList = {
   Channels: undefined;
   Profile: undefined;
-  Channel: undefined;
+  Channel: { id: string; title: string };
   "Channel Creation": undefined;
 };
 
@@ -47,6 +47,7 @@ type MainTabNavigationType = StackNavigationProp<
 >;
 
 type MainTabRouteProp = RouteProp<MainStackParamList, "Channels">;
+type ChannelRouteProp = RouteProp<MainStackParamList, "Channel">;
 
 export {
   LoginScreenNavigationType,
@@ -57,4 +58,5 @@ export {
   ProfileScreenNavigationType,
   MainTabNavigationType,
   MainTabRouteProp,
+  ChannelRouteProp,
 };
