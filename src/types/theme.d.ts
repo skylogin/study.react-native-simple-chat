@@ -21,5 +21,9 @@ declare module "styled-components" {
     tabInactiveColor: string;
     spinnerBackground: string;
     spinnerIndicator: string;
+    listBorder: string;
+    listTime: string;
+    listDescription: string;
+    listIcon: string;
   }
 }
