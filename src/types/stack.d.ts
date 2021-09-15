@@ -10,7 +10,7 @@ type MainStackParamList = {
   Channels: undefined;
   Profile: undefined;
   Channel: undefined;
-  ChannelCreation: undefined;
+  "Channel Creation": undefined;
 };
 
 type LoginScreenNavigationType = StackNavigationProp<
@@ -41,6 +41,13 @@ type ProfileScreenNavigationType = StackNavigationProp<
   "Profile"
 >;
 
+type MainTabNavigationType = StackNavigationProp<
+  MainStackParamList,
+  "Channels"
+>;
+
+type MainTabRouteProp = RouteProp<MainStackParamList, "Channels">;
+
 export {
   LoginScreenNavigationType,
   SignupScreenNavigationType,
@@ -48,4 +55,6 @@ export {
   ChannelScreenNavigationType,
   ChannelListScreenNavigationType,
   ProfileScreenNavigationType,
+  MainTabNavigationType,
+  MainTabRouteProp,
 };

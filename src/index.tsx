@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, SafeAreaView } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import { ThemeProvider } from 'styled-components/native';
 
@@ -14,9 +14,7 @@ const Index: React.FC = () => {
       <UserProvider>
         <ProgressProvder>
           <StatusBar barStyle="dark-content" />
-          <SafeAreaView style={{ flex: 1 }}>
             <Navigation />
-          </SafeAreaView>
         </ProgressProvder>
       </UserProvider>
     </ThemeProvider>

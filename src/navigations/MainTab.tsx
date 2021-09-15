@@ -4,8 +4,9 @@ import { ThemeContext } from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { MainTabNavigationType, MainTabRouteProp } from '../types/stack';
+
 import { Profile, ChannelList } from '../screens';
-import { RouteProp, useRoute } from '@react-navigation/native';
 
 
 const Tab = createBottomTabNavigator();
@@ -33,12 +34,17 @@ const TabBarIcon: React.FC<IProps> = ({
 
 
 
+interface ITabProps{
+  navigation: MainTabNavigationType,
+  route: MainTabRouteProp
+}
 
 
-const MainTab: React.FC<{}> = ({
+const MainTab: React.FC<ITabProps> = ({
+  navigation,
+  route,
 }) => {
   const theme = useContext(ThemeContext);
-
 
   return (
     <Tab.Navigator
@@ -60,8 +66,21 @@ const MainTab: React.FC<{}> = ({
         tabBarInactiveTintColor: theme.tabInactiveColor,
       })}
     >
-      <Tab.Screen name="Channels" component={ChannelList} options={{ headerShown: false }} />
-      <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
+      <Tab.Screen 
+        name="Channels" 
+        component={ChannelList} 
+        options={{
+          headerRight: (props) => (
+            <MaterialIcons
+              name="add"
+              size={26}
+              style={{ margin: 10 }}
+              onPress={() => navigation.navigate('Channel Creation')}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
