@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import styled, { ThemeContext } from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
+
+import { DB } from '../utils/firebase';
 
 import { ChannelListScreenNavigationType } from '../types/stack';
 
@@ -41,16 +43,6 @@ const ItemTime = styled.Text`
 `;
 
 
-const channels: TItem[] = [];
-for(let i=0; i<1000; i++){
-  channels.push({
-    id: String(i),
-    title: `title ${i}`,
-    description: `desciprtion ${i}`,
-    createdAt: i,
-  });
-}
-
 
 
 type TParam = {
@@ -60,7 +52,7 @@ type TParam = {
 
 type TItem = TParam & {
   description: string;
-  createdAt: number;
+  createdAt: Date;
 }
 interface ItemProps {
   item: TItem;
@@ -101,6 +93,25 @@ interface IProps{
 const ChannelList: React.FC<IProps> = ({
   navigation
 }) => {
+  const [channels, setChannels] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = DB.collection('channels')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(snapshot => {
+        const list:any = [];
+
+        console.log(list);
+        console.log(typeof list);
+
+        snapshot.forEach(doc => {
+          list.push(doc.data());
+        });
+        setChannels(list);
+      });
+
+    return () => unsubscribe();
+  }, []);
 
   const _handleItemPress = (params: TParam) => {
     navigation.navigate('Channel', params);
@@ -109,7 +120,7 @@ const ChannelList: React.FC<IProps> = ({
   return (
     <Container>
       <FlatList
-        keyExtractor={item => item['id'].toString()}
+        keyExtractor={item => item['id']}
         data={channels}
         renderItem={({ item }) => (
           <Item item={item} onPress={_handleItemPress} />
