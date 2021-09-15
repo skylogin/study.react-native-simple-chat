@@ -67,7 +67,7 @@ interface ItemProps {
   onPress: ({id, title}: TParam) => void;
 }
 
-const Item: React.FC<ItemProps> = ({
+const Item: React.FC<ItemProps> = React.memo(({
   item,
   onPress,
 }) => {
@@ -91,7 +91,7 @@ const Item: React.FC<ItemProps> = ({
       />
     </ItemContainer>
   );
-};
+});
 
 
 interface IProps{
@@ -114,6 +114,7 @@ const ChannelList: React.FC<IProps> = ({
         renderItem={({ item }) => (
           <Item item={item} onPress={_handleItemPress} />
         )}
+        windowSize={5}
       />
     </Container>
   )
