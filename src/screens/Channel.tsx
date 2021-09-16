@@ -6,7 +6,9 @@ import { GiftedChat, Send } from 'react-native-gifted-chat';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { createMessage, getCurrentUser, DB } from '../utils/firebase';
+
 import { ChannelScreenNavigationType, ChannelRouteProp } from '../types/stack';
+import type { TUser, TMessage } from "../types/chat";
 
 
 const Container = styled.View`
@@ -87,8 +89,14 @@ const Channel: React.FC<IProps> = ({
   });
 
 
-  const _handleMessageSend = () => {
+  const _handleMessageSend = async (messageList: TMessage[]) => {
+    const newMessage = messageList[0];
 
+    try{
+      await createMessage({ channelId: params.id, message: newMessage });
+    } catch(e: any){
+      Alert.alert('Send Message Error', e.message);
+    }
   };
 
 

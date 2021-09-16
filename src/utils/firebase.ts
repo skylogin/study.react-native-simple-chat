@@ -3,6 +3,8 @@ import "firebase/firestore";
 
 import config from "../../firebase.json";
 
+import type { TUser, TMessage } from "../types/chat";
+
 const app = firebase.initializeApp(config);
 
 const Auth = app.auth();
@@ -121,15 +123,16 @@ export const createChannel = async ({ title, description }: IChannel) => {
 
 interface IMessage {
   channelId: string;
-  text: string;
+  message: TMessage;
 }
 
-export const createMessage = async ({ channelId, text }: IMessage) => {
+export const createMessage = async ({ channelId, message }: IMessage) => {
   return await DB.collection("channels")
     .doc(channelId)
     .collection("messages")
-    .add({
-      text,
+    .doc(message._id)
+    .set({
+      ...message,
       createdAt: Date.now(),
     });
 };
