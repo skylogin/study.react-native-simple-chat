@@ -25,5 +25,7 @@ declare module "styled-components" {
     listTime: string;
     listDescription: string;
     listIcon: string;
+    sendButtonActivate: string;
+    sendButtonInactivate: string;
   }
 }

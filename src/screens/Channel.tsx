@@ -54,6 +54,7 @@ const Channel: React.FC<IProps> = ({
       <FlatList
         keyExtractor={item => item['id']}
         data={messages}
+        inverted={true}
         renderItem={({ item }: any) => (
           <Text style={{ fontSize: 24 }}>{item.text}</Text>
         )}
