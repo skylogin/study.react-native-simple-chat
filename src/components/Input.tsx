@@ -27,7 +27,7 @@ const StyledTextInput = styled.TextInput.attrs(({ theme }) => ({
 
 
 interface IProps {
-  label: string;
+  label?: string;
   value: string;
   onChangeText?: (text:string) => void;
   onSubmitEditing?: () => void;

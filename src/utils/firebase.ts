@@ -118,3 +118,18 @@ export const createChannel = async ({ title, description }: IChannel) => {
   await newChannelRef.set(newChannel);
   return id;
 };
+
+interface IMessage {
+  channelId: string;
+  text: string;
+}
+
+export const createMessage = async ({ channelId, text }: IMessage) => {
+  return await DB.collection("channels")
+    .doc(channelId)
+    .collection("messages")
+    .add({
+      text,
+      createdAt: Date.now(),
+    });
+};

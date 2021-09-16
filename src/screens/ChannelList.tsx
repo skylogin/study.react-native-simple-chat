@@ -44,10 +44,6 @@ const ItemTime = styled.Text`
 `;
 
 
-
-
-
-
 type TParam = {
   id: string;
   title: string;
